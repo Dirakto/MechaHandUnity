@@ -8,6 +8,7 @@ public class CamerasSwitching : MonoBehaviour
     private Camera[] cameras;
     private int currentMax;
     private int currentIndex;
+    private CameraIndex myCameraIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -15,11 +16,12 @@ public class CamerasSwitching : MonoBehaviour
         currentMax = Camera.allCamerasCount;
         cameras = new Camera[currentMax];
         Camera.GetAllCameras(cameras);
+        myCameraIndex = CameraIndex.getInstance();
 
-        currentIndex = 0;
-        cameras[0].gameObject.SetActive(true);
-        for (int i = 1; i < currentMax; i++)
+        currentIndex = myCameraIndex.index;
+        for (int i = 0; i < currentMax; i++)
             cameras[i].gameObject.SetActive(false);
+        cameras[myCameraIndex.index].gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -27,7 +29,6 @@ public class CamerasSwitching : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Debug.Log(cameras.ToString());
             currentIndex++;
             if (currentIndex < currentMax)
             {
@@ -40,6 +41,7 @@ public class CamerasSwitching : MonoBehaviour
                 currentIndex = 0;
                 cameras[currentIndex].gameObject.SetActive(true);
             }
+            myCameraIndex.index = currentIndex;
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
@@ -55,6 +57,7 @@ public class CamerasSwitching : MonoBehaviour
                 currentIndex = currentMax-1;
                 cameras[currentIndex].gameObject.SetActive(true);
             }
+            myCameraIndex.index = currentIndex;
         }
         if(Input.GetKeyDown(KeyCode.V))
         {
@@ -62,3 +65,17 @@ public class CamerasSwitching : MonoBehaviour
         }
     }
 }
+
+// class CameraIndex
+// {
+//     private static CameraIndex _me = null;
+//     public int index { get; set; }
+//     private CameraIndex(int i){
+//         index = 0;
+//     }
+//     public static CameraIndex getInstance(){
+//         if(_me == null)
+//             _me = new CameraIndex(0);
+//         return _me;
+//     }
+// }
