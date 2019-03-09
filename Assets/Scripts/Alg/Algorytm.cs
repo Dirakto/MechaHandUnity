@@ -23,6 +23,7 @@ public class Algorytm : MonoBehaviour
     public GameObject obiekt;
     public GameObject chwytak;
 
+    // Vector3 lastTargetPosition;
 
     float angle;
     float currentAngle = 0;
@@ -45,53 +46,60 @@ public class Algorytm : MonoBehaviour
         obiekt = GameObject.Find("Obiekt");
         chwytak = GameObject.Find("Chwytak");
 
-        angle = rotateTowardsTarget(obiekt.transform.position);
-        if(angle < 0){
-            rotateDirection = 1;
-            angle*=-1;
-        }
-
-        armAngles = moveTowardsTarget_Perpendicular(obiekt.transform.position);
-        Debug.Log(armAngles[0]+" "+armAngles[1]+" "+armAngles[2]);
+        calculateAllData();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log(currentAngle+" "+-1*angle);
-        
+        float speed = 0.5f;
         if(currentAngle < angle){
-            joint1.transform.RotateAround(joint1.transform.position, new Vector3(0, 1, 0), rotateDirection*0.5f);
-            currentAngle+=0.5f;
+            joint1.transform.RotateAround(joint1.transform.position, new Vector3(0, 1, 0), rotateDirection*speed);
+            currentAngle+=speed;
         }
-        // Debug.Log(currentArmAngles[0]+" "+armAngles[0]);
+
         if(currentArmAngles[0] > armAngles[0]){
-            dolne.transform.RotateAround(joint1.transform.position, joint1.transform.right, moveDirection*0.5f);
+            dolne.transform.RotateAround(joint1.transform.position, joint1.transform.right, moveDirection*speed);
             currentArmAngles[0]-=0.5f;
         }
         if(currentArmAngles[1] > armAngles[1]){
-            // Debug.Log(srodkowe.GetComponent<Renderer>().bounds.size.z);
-            srodkowe.transform.RotateAround(joint2.transform.position, joint2.transform.right, moveDirection*0.5f);
+
+            srodkowe.transform.RotateAround(joint2.transform.position, joint2.transform.right, moveDirection*speed);
             currentArmAngles[1]-=0.5f;
         }
         if(currentArmAngles[2] > armAngles[2]){
-            gorne.transform.RotateAround(joint3.transform.position, joint3.transform.right, moveDirection*0.5f);
+            gorne.transform.RotateAround(joint3.transform.position, joint3.transform.right, moveDirection*speed);
             currentArmAngles[2]-=0.5f;
         }
+
+
+        if(Input.GetKeyDown(KeyCode.B)){
+            // float[] tmp = new float[]{ 90, 90, 90};
+            // for(int i = 0; i < currentArmAngles.Length; i++)
+            calculateAllData();
+            if(angle < 0){
+                rotateDirection = -1;
+                angle*=-1;
+            }
+            currentAngle = (currentAngle + angle);
+            Debug.Log(currentAngle+" > "+angle+" "+rotateDirection);
+        }
+
+
     }
 
     public float rotateTowardsTarget(Vector3 target)
     {
         // os Z jest Polnoca
-        float current_y = joint1.transform.rotation.y;
+
+        // float current_y = joint1.transform.rotation.y;
 
         // chyba zla wersja, trzeba uzyc .right
         // float cosAlfa = (target.x*Mathf.Cos(current_y) +
         //                  target.z*Mathf.Sin(current_y)) /
         //                  Mathf.Sqrt( Mathf.Pow(target.x, 2)+Mathf.Pow(target.z,2));
-        float cosAlfa = ((target.x*joint1.transform.forward.x) + (target.z*joint1.transform.forward.z)) /
+        float cosAlfa = ((target.x*Vector3.forward.x) + (target.z*Vector3.forward.z)) /
                         Mathf.Sqrt( Mathf.Pow(target.x, 2)+Mathf.Pow(target.z,2));
-
         float angle = Mathf.Acos(cosAlfa);// % Mathf.PI);
 
         short direction = 0;
@@ -104,11 +112,10 @@ public class Algorytm : MonoBehaviour
             direction = 1;
 
         angle *= Mathf.Rad2Deg;
-        if(angle > 90){
-            angle = 180 - angle;
-            direction *= -1;
-            moveDirection*=-1;
-        }
+
+        if(angle > 120)
+            throw new AngleValueException("Angle is greater than 120 degrees");
+        
         return angle * direction;
     }
 
@@ -129,4 +136,29 @@ public class Algorytm : MonoBehaviour
         // Debug.Log(alfa+" "+beta);
         return new float[]{alfa, 90-alfa, 90-beta};
     }
+
+
+
+
+    public void calculateAllData(){
+        try{
+            angle = rotateTowardsTarget(obiekt.transform.position);
+            if(angle < 0){
+                rotateDirection = 1;
+                angle*=-1;
+            }
+        }catch(AngleValueException ave) { log(ave.Message); }
+
+        armAngles = moveTowardsTarget_Perpendicular(obiekt.transform.position);
+    }
+
+    public static void log(string txt, bool shouldShow = true){
+        if(shouldShow) Debug.Log(txt);
+    }
+    public static void log(float txt, bool shouldShow = true){
+        if(shouldShow) Debug.Log(txt);
+    }
+
+
+
 }
