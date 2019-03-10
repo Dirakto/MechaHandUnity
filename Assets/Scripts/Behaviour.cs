@@ -31,28 +31,29 @@ public class Behaviour : MonoBehaviour
         obiekt = GameObject.Find("Obiekt");
         chwytak = GameObject.Find("Chwytak");
 
-        srodkowe.transform.RotateAround(joint2.transform.position, joint2.transform.right, 20);
-        gorne.transform.RotateAround(joint3.transform.position, joint3.transform.right, 45);
+        dolne.transform.RotateAround(joint1.transform.position, joint2.transform.right, 90);
+        // srodkowe.transform.RotateAround(joint2.transform.position, joint2.transform.right, 20);
+        // gorne.transform.RotateAround(joint3.transform.position, joint3.transform.right, 45);
 
     }
 
     void Update()
     {
 
-        Vector3 direction = new Vector3(obiekt.transform.position.x, 0, obiekt.transform.position.z) - new Vector3(joint1.transform.position.x, 0,joint1.transform.position.z);
-        float angle = Vector3.Angle(direction, joint1.transform.forward);//-1*joint1.transform.right);
-        // Debug.Log(myViewAngle);
-        if ( angle - myViewAngle * 0.5f < 0 )
-        {
+        // Vector3 direction = new Vector3(obiekt.transform.position.x, 0, obiekt.transform.position.z) - new Vector3(joint1.transform.position.x, 0,joint1.transform.position.z);
+        // float angle = Vector3.Angle(direction, joint1.transform.forward);//-1*joint1.transform.right);
+        // // Debug.Log(myViewAngle);
+        // if ( angle - myViewAngle * 0.5f < 0 )
+        // {
 
-        }
-        else
-        {
-            // Debug.Log(joint3.transform.rotation.y);
-            joint1.transform.RotateAround(joint1.transform.position, new Vector3(0, 1, 0), 0.5f); // dobre
-            srodkowe.transform.RotateAround(joint2.transform.position, joint2.transform.right, 0.5f);
-            gorne.transform.RotateAround(joint3.transform.position, joint3.transform.right, 0.5f);
-        }
+        // }
+        // else
+        // {
+        //     // Debug.Log(joint3.transform.rotation.y);
+        //     joint1.transform.RotateAround(joint1.transform.position, new Vector3(0, 1, 0), 0.5f); // dobre
+        //     srodkowe.transform.RotateAround(joint2.transform.position, joint2.transform.right, 0.5f);
+        //     gorne.transform.RotateAround(joint3.transform.position, joint3.transform.right, 0.5f);
+        // }
 
 
 
@@ -78,19 +79,5 @@ public class Behaviour : MonoBehaviour
         // {
         //    transform.Rotate(new Vector3(0, 1, 0));
         // }
-    }
-}
-
-class CameraIndex
-{
-    private static CameraIndex _me = null;
-    public int index { get; set; }
-    private CameraIndex(int i){
-        index = 0;
-    }
-    public static CameraIndex getInstance(){
-        if(_me == null)
-            _me = new CameraIndex(0);
-        return _me;
     }
 }
