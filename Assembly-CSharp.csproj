@@ -55,9 +55,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Alg\Algorytm.cs" />
      <Compile Include="Assets\Scripts\Alg\Errors.cs" />
+     <Compile Include="Assets\Scripts\Alg\Movement.cs" />
      <Compile Include="Assets\Scripts\Alg\Point.cs" />
      <Compile Include="Assets\Scripts\Behaviour.cs" />
      <Compile Include="Assets\Scripts\CamerasSwitching.cs" />
+     <Compile Include="Assets\Scripts\MessageShower.cs" />
      <Compile Include="Assets\Scripts\Radius.cs" />
      <Compile Include="Assets\Scripts\TargetMoving.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">

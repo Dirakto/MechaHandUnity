@@ -13,6 +13,8 @@ public class Algorytm : MonoBehaviour
         // Debug.Log(joint3.transform.position.y - joint2.transform.position.y);
         // Debug.Log(chwytak.transform.position.y - joint3.transform.position.y);
 
+    public MessageShower ms;
+
     public GameObject joint1;
     public GameObject joint2;
     public GameObject joint3;
@@ -31,9 +33,10 @@ public class Algorytm : MonoBehaviour
     float[] currentArmAngles = new float[]{90, 90, 90};
     float[] moveDirection = new float[]{1, 1, 1};
 
-    // Start is called before the first frame update
     void Start()
     {
+        ms = MessageShower.instanceOf(GameObject.Find("Warning"));
+
         joint1 = GameObject.Find("Joint1");
         joint2 = GameObject.Find("Joint2");
         joint3 = GameObject.Find("Joint3");
@@ -49,10 +52,11 @@ public class Algorytm : MonoBehaviour
         }catch(AngleValueException ave){ 
             Debug.Log(ave.Message);
             armAngles = new float[]{1000f, 1000f, 1000f};
+            // ms.visible = true;
+            ms.text = ave.Message;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         float speed = 0.25f;
@@ -80,7 +84,7 @@ public class Algorytm : MonoBehaviour
             try{
                 calculateAllData();
                 startAtZero = 0;
-            }catch(AngleValueException ave) { Debug.Log(ave.Message);   Debug.Log("Blad"); }
+            }catch(AngleValueException ave) { Debug.Log(ave.Message);   Debug.Log("Blad"); ms.text = ave.Message; }
         }
 
 
@@ -102,21 +106,7 @@ public class Algorytm : MonoBehaviour
         }else{
             if(target.x < 0)
                 rotateDirection = -1;
-            // Vector3 right = Vector3.Cross(Vector3.forward, new Vector3(0,1,0));
-            // if(Vector3.Dot(right, target) < 0)
-            //     rotateDirection = -1;
         }
-            // if(Vector3.Dot(Vector3.Cross(-1*Vector3.forward, new Vector3(0,1,0)), target) >= 0)
-            //     rotateDirection*= -1;
-        // }else{
-        //     if(Vector3.Dot(Vector3.Cross(-1*Vector3.forward, new Vector3(0,1,0)), target) < 0)
-        //         rotateDirection*= -1;
-        // }
-
-
-        // if(joint1.transform.forward.z < 0 && target.z < 0 && joint1.transform.forward.x*target.x < 0){
-        //     rotateDirection *= -1;
-        // }
 
         angle *= Mathf.Rad2Deg;
 
@@ -129,11 +119,17 @@ public class Algorytm : MonoBehaviour
     public float[] moveTowardsTarget_Perpendicular(Vector3 target){
 
         float angleCorrection = 0;
-        if(target.y > obiekt.GetComponent<Renderer>().bounds.size.y/2){
-            angleCorrection = Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+        // if(target.y > obiekt.GetComponent<Renderer>().bounds.size.y/2){
+        //     angleCorrection = Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+        // }else{
+        //     angleCorrection = -Mathf.Acos( Mathf.Sqrt( Mathf.Pow(target.x,2)+Mathf.Pow(target.z,2))/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+        // }
+        if(target.y < joint1.transform.position.y){
+            angleCorrection =  Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
         }else{
-            angleCorrection = -Mathf.Acos( Mathf.Sqrt( Mathf.Pow(target.x,2)+Mathf.Pow(target.z,2))/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+            angleCorrection = Mathf.Asin( target.y/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
         }
+
 
         float distance = Vector3.Distance(target, joint1.transform.position);
         float x2 = (Mathf.Pow(UPPER_ARM_LENGTH, 2) - Mathf.Pow(LOWER_ARM_LENGTH, 2) + Mathf.Pow(distance - MEDIUM_ARM_LENGTH, 2)) /

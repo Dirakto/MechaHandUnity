@@ -9,13 +9,14 @@ public class CamerasSwitching : MonoBehaviour
     private int currentMax;
     private int currentIndex;
     private CameraIndex myCameraIndex;
-    private ObiektIndex myObiektIndex;
+    private ObiektPosition myObiektPosition;
+    private GameObject obiekt;
 
-    // Start is called before the first frame update
     void Start()
     {
-        myObiektIndex = ObiektIndex.getInstance(GameObject.Find("Obiekt").transform.position);
-        GameObject.Find("Obiekt").transform.position = myObiektIndex.pos;
+        obiekt = GameObject.Find("Obiekt");
+        myObiektPosition = ObiektPosition.getInstance(obiekt.transform.position);
+        GameObject.Find("Obiekt").transform.position = myObiektPosition.pos;
 
         currentMax = Camera.allCamerasCount;
         cameras = new Camera[currentMax];
@@ -28,49 +29,39 @@ public class CamerasSwitching : MonoBehaviour
         cameras[myCameraIndex.index].gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
             currentIndex++;
-            if (currentIndex < currentMax)
-            {
-                cameras[currentIndex - 1].gameObject.SetActive(false);
-                cameras[currentIndex].gameObject.SetActive(true);
-            }
-            else
-            {
-                cameras[currentIndex - 1].gameObject.SetActive(false);
+            cameras[currentIndex - 1].gameObject.SetActive(false);
+            if (currentIndex >= currentMax){
                 currentIndex = 0;
-                cameras[currentIndex].gameObject.SetActive(true);
             }
+            cameras[currentIndex].gameObject.SetActive(true);
             myCameraIndex.index = currentIndex;
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             currentIndex--;
-            if (currentIndex > -1)
+            cameras[currentIndex + 1].gameObject.SetActive(false);
+            if (currentIndex <= -1)
             {
-                cameras[currentIndex + 1].gameObject.SetActive(false);
-                cameras[currentIndex].gameObject.SetActive(true);
-            }
-            else
-            {
-                cameras[currentIndex + 1].gameObject.SetActive(false);
                 currentIndex = currentMax-1;
-                cameras[currentIndex].gameObject.SetActive(true);
             }
+            cameras[currentIndex].gameObject.SetActive(true);
             myCameraIndex.index = currentIndex;
         }
+
         if(Input.GetKeyDown(KeyCode.V))
         {
-        myObiektIndex.pos = GameObject.Find("Obiekt").transform.position;
-        SceneManager.LoadScene("SampleScene") ;
+            myObiektPosition.pos = obiekt.transform.position;
+            SceneManager.LoadScene("SampleScene") ;
         }
     }
 }
 
+/* Singleton do przechowywania indeksu ostatniej kamery */
 class CameraIndex
 {
     private static CameraIndex _me = null;
@@ -85,17 +76,17 @@ class CameraIndex
     }
 }
 
-class ObiektIndex
+/* Singleton do przechowywania ostatniej pozycji obiektu */
+class ObiektPosition
 {
-    private static ObiektIndex _me = null;
+    private static ObiektPosition _me = null;
     public Vector3 pos { get; set; }
-    private ObiektIndex(Vector3 targetPosition){
+    private ObiektPosition(Vector3 targetPosition){
         pos = targetPosition;
     }
-    private ObiektIndex(){}
-    public static ObiektIndex getInstance(Vector3 targetPosition){
+    public static ObiektPosition getInstance(Vector3 targetPosition){
         if(_me == null)
-            _me = new ObiektIndex(targetPosition);
+            _me = new ObiektPosition(targetPosition);
         return _me;
     }
 }
