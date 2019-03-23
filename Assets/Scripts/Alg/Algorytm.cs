@@ -95,9 +95,28 @@ public class Algorytm : MonoBehaviour
         float angle = Mathf.Acos(cosAlfa);// % Mathf.PI);
 
         rotateDirection = 1;
-        Vector3 right = Vector3.Cross(-1*joint1.transform.forward, new Vector3(0,1,0));
-        if(Vector3.Dot(right, target) < 0)
-            rotateDirection = -1;
+        if(target.x * joint1.transform.forward.x >= 0){
+            Vector3 right = Vector3.Cross(-1*joint1.transform.forward, new Vector3(0,1,0));
+            if(Vector3.Dot(right, target) < 0)
+                rotateDirection = -1;
+        }else{
+            if(target.x < 0)
+                rotateDirection = -1;
+            // Vector3 right = Vector3.Cross(Vector3.forward, new Vector3(0,1,0));
+            // if(Vector3.Dot(right, target) < 0)
+            //     rotateDirection = -1;
+        }
+            // if(Vector3.Dot(Vector3.Cross(-1*Vector3.forward, new Vector3(0,1,0)), target) >= 0)
+            //     rotateDirection*= -1;
+        // }else{
+        //     if(Vector3.Dot(Vector3.Cross(-1*Vector3.forward, new Vector3(0,1,0)), target) < 0)
+        //         rotateDirection*= -1;
+        // }
+
+
+        // if(joint1.transform.forward.z < 0 && target.z < 0 && joint1.transform.forward.x*target.x < 0){
+        //     rotateDirection *= -1;
+        // }
 
         angle *= Mathf.Rad2Deg;
 
@@ -121,13 +140,9 @@ public class Algorytm : MonoBehaviour
                     (2 * (distance - MEDIUM_ARM_LENGTH));
         float x1 = distance - MEDIUM_ARM_LENGTH - x2;
 
-        Debug.Log(distance);
-        Debug.Log(x1+" "+MEDIUM_ARM_LENGTH+" "+x2);
-
         float alfa = Mathf.Acos(x1 / LOWER_ARM_LENGTH)*Mathf.Rad2Deg;
         float beta = Mathf.Acos(x2 / UPPER_ARM_LENGTH)*Mathf.Rad2Deg;
 
-        // Debug.Log(alfa+" "+beta);
         return new float[]{alfa+angleCorrection, 90-alfa, 90-beta};
     }
 
@@ -136,7 +151,7 @@ public class Algorytm : MonoBehaviour
 
     public void calculateAllData(){
             float angle = rotateTowardsTarget(obiekt.transform.position);
-            
+
             if(joint1.transform.forward.x*obiekt.transform.position.x < 0){
                 targetAngle = angle + Vector3.Angle(joint1.transform.forward, Vector3.forward);
             }else{
@@ -148,7 +163,7 @@ public class Algorytm : MonoBehaviour
             }
 
             armAngles = moveTowardsTarget_Perpendicular(obiekt.transform.position);
-            Debug.Log(armAngles[0]+" "+armAngles[1]+" "+armAngles[2]);
+            // Debug.Log(armAngles[0]+" "+armAngles[1]+" "+armAngles[2]);
             for(int i = 0; i<armAngles.Length; i++)
                 if(armAngles[i] > 90)
                     throw new AngleValueException("Arm "+i+" has an angle greater than 90");
