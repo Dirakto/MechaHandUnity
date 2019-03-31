@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.4368834, g: 0.48453778, b: 0.56479675, a: 1}
+  m_IndirectSpecularColor: {r: 0.43688303, g: 0.48453742, b: 0.56479585, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1117,7 +1117,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -620.5, y: 381}
-  m_SizeDelta: {x: 282.6, y: 160.8}
+  m_SizeDelta: {x: 363.6, y: 122.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189739211
 MonoBehaviour:
@@ -1152,8 +1152,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Sterowanie obiektem:\n\u2190\u2191\u2193\u2192 - lewo/prz\xF3d/ty\u0142/prawo\nSpacja
-    - g\xF3ra\nLCtrl - d\xF3\u0142\n\n\n"
+  m_Text: "Sterowanie obiektem:\n\u2190/\u2191/\u2193/\u2192 - lewo/prz\xF3d/ty\u0142/prawo\nSpacja
+    - g\xF3ra\nLctrl - d\xF3\u0142\n\n\n"
 --- !u!222 &1189739212
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1177,6 +1177,7 @@ GameObject:
   - component: {fileID: 1261857460}
   - component: {fileID: 1261857462}
   - component: {fileID: 1261857461}
+  - component: {fileID: 1261857463}
   m_Layer: 0
   m_Name: Baza
   m_TagString: Untagged
@@ -1281,9 +1282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7a9f996334b5947ae55fa9d977bb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segments: 100
-  xradius: 0
-  yradius: 0
 --- !u!120 &1261857462
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1379,6 +1377,18 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1261857463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261857455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2613f30c724ffd4c9f0367dd4dd653c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1359795012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,7 +1467,6 @@ GameObject:
   - component: {fileID: 1368187831}
   - component: {fileID: 1368187830}
   - component: {fileID: 1368187829}
-  - component: {fileID: 1368187833}
   - component: {fileID: 1368187834}
   m_Layer: 0
   m_Name: Dolne
@@ -1539,27 +1548,6 @@ Transform:
   m_Father: {fileID: 701600293}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1368187833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368187828}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b96568015beab345a1e70ec004e9609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joint1: {fileID: 0}
-  joint2: {fileID: 0}
-  joint3: {fileID: 0}
-  dolne: {fileID: 0}
-  srodkowe: {fileID: 0}
-  gorne: {fileID: 0}
-  baza: {fileID: 0}
-  obiekt: {fileID: 0}
-  chwytak: {fileID: 0}
 --- !u!114 &1368187834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1780,7 +1768,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 605.9, y: 381}
-  m_SizeDelta: {x: 279.2, y: 154.7}
+  m_SizeDelta: {x: 296.6, y: 180.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913812407
 MonoBehaviour:
@@ -1816,7 +1804,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Sterowanie gr\u0105:\nX - poprzednia kamera\nC - nast\u0119pna kamera\nV
-    - restart\nB - chwy\u0107 nowy punkt"
+    - restart\nB - aktualizacja zmiany\nEsc - zamkni\u0119cie gry"
 --- !u!222 &1913812408
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1859,8 +1847,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 30}
+  m_AnchoredPosition: {x: 0, y: -113.3}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1970337976
 MonoBehaviour:
@@ -1875,7 +1863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9339623, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1884,18 +1872,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1970337977
 CanvasRenderer:
   m_ObjectHideFlags: 0
