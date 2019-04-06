@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{8E1B4AB0-A67C-2D97-75B7-E690F0F42935}</ProjectGuid>
+    <ProjectGuid>{6BD9308F-2978-9965-1EFC-558C9BA34387}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,27 +57,31 @@
      <Compile Include="Assets\Scripts\Alg\Errors.cs" />
      <Compile Include="Assets\Scripts\Alg\IAlgorithm.cs" />
      <Compile Include="Assets\Scripts\Alg\Movement.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\Alg\Point.cs" />
      <Compile Include="Assets\Scripts\Alg\TomaszewAlgorithm.cs" />
+=======
+>>>>>>> ca459f00f3ece1a3a8516ab4ce591816e520ad47
      <Compile Include="Assets\Scripts\Behaviour.cs" />
      <Compile Include="Assets\Scripts\CamerasSwitching.cs" />
+     <Compile Include="Assets\Scripts\ClosingApp.cs" />
      <Compile Include="Assets\Scripts\MessageShower.cs" />
      <Compile Include="Assets\Scripts\Radius.cs" />
      <Compile Include="Assets\Scripts\TargetMoving.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -281,13 +285,13 @@
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
- <HintPath>R:/UnityProjects/MechaHandModel/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>R:/InzynierkaH/mechahandunity/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>D:/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

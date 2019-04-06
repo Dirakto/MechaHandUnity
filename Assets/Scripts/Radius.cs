@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Algorytm;
 
 
 // https://gamedev.stackexchange.com/questions/126427/draw-circle-around-gameobject-to-indicate-radius
@@ -20,7 +21,7 @@ public class Radius : MonoBehaviour
 
     void Start()
     {
-        length = GameObject.Find("Chwytak").transform.position.y;
+        length = Mathf.Sqrt(Mathf.Pow(MAX_LENGTH, 2) - Mathf.Pow(GameObject.Find("Joint1").transform.position.y,2));
 
         circle = gameObject.GetComponent<LineRenderer>();
 

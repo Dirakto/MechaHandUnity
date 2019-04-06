@@ -16,19 +16,18 @@ public class MessageShower
         }
     }
 
-
     private MessageShower(GameObject gm){
         warningObject = gm;
         warningText = gm.GetComponent<Text>();
-        // warningText = gm.GetComponent<Text>();
-        // gm.SetActive(false);
     }
 
     public static MessageShower instanceOf(GameObject gm){
         if(_me == null)
             _me = new MessageShower(gm);
-        else
+        else{
             _me.warningObject = gm;
+            _me.warningText = gm.GetComponent<Text>();
+        }
         return _me;
     }
 }
