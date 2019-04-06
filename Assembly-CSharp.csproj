@@ -55,8 +55,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Alg\Algorytm.cs" />
      <Compile Include="Assets\Scripts\Alg\Errors.cs" />
+     <Compile Include="Assets\Scripts\Alg\IAlgorithm.cs" />
      <Compile Include="Assets\Scripts\Alg\Movement.cs" />
      <Compile Include="Assets\Scripts\Alg\Point.cs" />
+     <Compile Include="Assets\Scripts\Alg\TomaszewAlgorithm.cs" />
      <Compile Include="Assets\Scripts\Behaviour.cs" />
      <Compile Include="Assets\Scripts\CamerasSwitching.cs" />
      <Compile Include="Assets\Scripts\MessageShower.cs" />

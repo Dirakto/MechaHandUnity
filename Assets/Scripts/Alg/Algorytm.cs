@@ -15,15 +15,15 @@ public class Algorytm : MonoBehaviour
 
     public MessageShower ms;
 
-    public GameObject joint1;
-    public GameObject joint2;
-    public GameObject joint3;
-    public GameObject dolne;
-    public GameObject srodkowe;
-    public GameObject gorne;
-    public GameObject baza;
-    public GameObject obiekt;
-    public GameObject chwytak;
+    public static GameObject joint1;
+    public static GameObject joint2;
+    public static GameObject joint3;
+    public static GameObject dolne;
+    public static GameObject srodkowe;
+    public static GameObject gorne;
+    public static GameObject baza;
+    public static GameObject obiekt;
+    public static GameObject chwytak;
 
     float targetAngle = 0;
     float startAtZero = 0;
@@ -33,8 +33,11 @@ public class Algorytm : MonoBehaviour
     float[] currentArmAngles = new float[]{90, 90, 90};
     float[] moveDirection = new float[]{1, 1, 1};
 
+    private IAlgorithm algorithm;
+
     void Start()
     {
+        algorithm = new TomaszewAlgorithm();
         ms = MessageShower.instanceOf(GameObject.Find("Warning"));
 
         joint1 = GameObject.Find("Joint1");
@@ -90,63 +93,65 @@ public class Algorytm : MonoBehaviour
 
     }
 
-    public float rotateTowardsTarget(Vector3 target)
-    {
-        // os Z jest Polnoca
+    // public float rotateTowardsTarget(Vector3 target)
+    // {
+    //     // os Z jest Polnoca
 
-        float cosAlfa = ((target.x*Vector3.forward.x) + (target.z*Vector3.forward.z)) /
-                        Mathf.Sqrt( Mathf.Pow(target.x, 2)+Mathf.Pow(target.z,2));
-        float angle = Mathf.Acos(cosAlfa);// % Mathf.PI);
+    //     float cosAlfa = ((target.x*Vector3.forward.x) + (target.z*Vector3.forward.z)) /
+    //                     Mathf.Sqrt( Mathf.Pow(target.x, 2)+Mathf.Pow(target.z,2));
+    //     float angle = Mathf.Acos(cosAlfa);// % Mathf.PI);
 
-        rotateDirection = 1;
-        if(target.x * joint1.transform.forward.x >= 0){
-            Vector3 right = Vector3.Cross(-1*joint1.transform.forward, new Vector3(0,1,0));
-            if(Vector3.Dot(right, target) < 0)
-                rotateDirection = -1;
-        }else{
-            if(target.x < 0)
-                rotateDirection = -1;
-        }
+    //     rotateDirection = 1;
+    //     if(target.x * joint1.transform.forward.x >= 0){
+    //         Vector3 right = Vector3.Cross(-1*joint1.transform.forward, new Vector3(0,1,0));
+    //         if(Vector3.Dot(right, target) < 0)
+    //             rotateDirection = -1;
+    //     }else{
+    //         if(target.x < 0)
+    //             rotateDirection = -1;
+    //     }
 
-        angle *= Mathf.Rad2Deg;
+    //     angle *= Mathf.Rad2Deg;
 
-        if(angle > 120)
-            throw new AngleValueException("Angle is greater than 120 degrees");
+    //     if(angle > 120)
+    //         throw new AngleValueException("Angle is greater than 120 degrees");
         
-        return angle;
-    }
+    //     return angle;
+    // }
 
-    public float[] moveTowardsTarget_Perpendicular(Vector3 target){
+    // public float[] moveTowardsTarget_Perpendicular(Vector3 target){
 
-        float angleCorrection = 0;
-        // if(target.y > obiekt.GetComponent<Renderer>().bounds.size.y/2){
-        //     angleCorrection = Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
-        // }else{
-        //     angleCorrection = -Mathf.Acos( Mathf.Sqrt( Mathf.Pow(target.x,2)+Mathf.Pow(target.z,2))/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
-        // }
-        if(target.y < joint1.transform.position.y){
-            angleCorrection =  Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
-        }else{
-            angleCorrection = Mathf.Asin( target.y/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
-        }
+    //     float angleCorrection = 0;
+    //     // if(target.y > obiekt.GetComponent<Renderer>().bounds.size.y/2){
+    //     //     angleCorrection = Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+    //     // }else{
+    //     //     angleCorrection = -Mathf.Acos( Mathf.Sqrt( Mathf.Pow(target.x,2)+Mathf.Pow(target.z,2))/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+    //     // }
+    //     if(target.y < joint1.transform.position.y){
+    //         angleCorrection =  Mathf.Asin( (target.y-joint1.transform.position.y)/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+    //     }else{
+    //         angleCorrection = Mathf.Asin( target.y/Vector3.Distance(target, joint1.transform.position) )*Mathf.Rad2Deg;
+    //     }
 
 
-        float distance = Vector3.Distance(target, joint1.transform.position);
-        float x2 = (Mathf.Pow(UPPER_ARM_LENGTH, 2) - Mathf.Pow(LOWER_ARM_LENGTH, 2) + Mathf.Pow(distance - MEDIUM_ARM_LENGTH, 2)) /
-                    (2 * (distance - MEDIUM_ARM_LENGTH));
-        float x1 = distance - MEDIUM_ARM_LENGTH - x2;
+    //     float distance = Vector3.Distance(target, joint1.transform.position);
+    //     float x2 = (Mathf.Pow(UPPER_ARM_LENGTH, 2) - Mathf.Pow(LOWER_ARM_LENGTH, 2) + Mathf.Pow(distance - MEDIUM_ARM_LENGTH, 2)) /
+    //                 (2 * (distance - MEDIUM_ARM_LENGTH));
+    //     float x1 = distance - MEDIUM_ARM_LENGTH - x2;
 
-        float alfa = Mathf.Acos(x1 / LOWER_ARM_LENGTH)*Mathf.Rad2Deg;
-        float beta = Mathf.Acos(x2 / UPPER_ARM_LENGTH)*Mathf.Rad2Deg;
+    //     float alfa = Mathf.Acos(x1 / LOWER_ARM_LENGTH)*Mathf.Rad2Deg;
+    //     float beta = Mathf.Acos(x2 / UPPER_ARM_LENGTH)*Mathf.Rad2Deg;
 
-        return new float[]{alfa+angleCorrection, 90-alfa, 90-beta};
-    }
+    //     return new float[]{alfa+angleCorrection, 90-alfa, 90-beta};
+    // }
 
 
 
 
     public void calculateAllData(){
-            float angle = rotateTowardsTarget(obiekt.transform.position);
+            float[] rotationResults = algorithm.rotateTowardsTarget(obiekt.transform.position);
+            float angle = rotationResults[0];
+            this.rotateDirection = rotationResults[1];
 
             if(joint1.transform.forward.x*obiekt.transform.position.x < 0){
                 targetAngle = angle + Vector3.Angle(joint1.transform.forward, Vector3.forward);
@@ -158,7 +163,7 @@ public class Algorytm : MonoBehaviour
                 }
             }
 
-            armAngles = moveTowardsTarget_Perpendicular(obiekt.transform.position);
+            armAngles = algorithm.moveTowardsTarget(obiekt.transform.position);
             // Debug.Log(armAngles[0]+" "+armAngles[1]+" "+armAngles[2]);
             for(int i = 0; i<armAngles.Length; i++)
                 if(armAngles[i] > 90)
