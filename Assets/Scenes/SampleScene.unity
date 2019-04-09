@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.43688303, g: 0.48453742, b: 0.56479585, a: 1}
+  m_IndirectSpecularColor: {r: 0.4368834, g: 0.48453778, b: 0.56479675, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1117,7 +1117,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -620.5, y: 381}
-  m_SizeDelta: {x: 363.6, y: 122.8}
+  m_SizeDelta: {x: 363.6, y: 152.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189739211
 MonoBehaviour:
@@ -1560,15 +1560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4461ab9e89e304898cfd62e51c53af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joint1: {fileID: 0}
-  joint2: {fileID: 0}
-  joint3: {fileID: 0}
-  dolne: {fileID: 0}
-  srodkowe: {fileID: 0}
-  gorne: {fileID: 0}
-  baza: {fileID: 0}
-  obiekt: {fileID: 0}
-  chwytak: {fileID: 0}
 --- !u!1 &1455447038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,7 +1863,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
